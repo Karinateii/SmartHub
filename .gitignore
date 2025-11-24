@@ -1,5 +1,36 @@
+# Build and runtime artifacts
 bin/
 obj/
+*.dll
+*.exe
+*.pdb
+
+# Configuration and secrets
 appsettings.Development.json
 appsettings.Local.json
+appsettings.*.json
+.env
+.env.local
+*.user
+*.suo
+
+# IDE and editor
 .vscode/
+.vs/
+.idea/
+*.swp
+*.swo
+
+# Database and logs
+*.db
+*.mdf
+*.ldf
+*.log
+
+# Dependencies
+node_modules/
+packages/
+
+# OS
+.DS_Store
+Thumbs.db
