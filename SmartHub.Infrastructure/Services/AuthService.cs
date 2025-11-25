@@ -100,9 +100,9 @@ namespace SmartHub.Infrastructure.Services
 
     private AuthResponse CreateAuthResponse(User user)
     {
-      var key = _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not configured");
-      var issuer = _configuration["Jwt:Issuer"] ?? "SmartHub";
-      var audience = _configuration["Jwt:Audience"] ?? "SmartHubClient";
+      var key = _configuration["Jwt:Key"] ?? Environment.GetEnvironmentVariable("JWT_KEY") ?? throw new InvalidOperationException("JWT Key not configured");
+      var issuer = _configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "SmartHub";
+      var audience = _configuration["Jwt:Audience"] ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "SmartHubClient";
       var expiryMinutes = int.TryParse(_configuration["Jwt:ExpireMinutes"], out var minutes) ? minutes : 60;
 
       var keyBytes = Encoding.UTF8.GetBytes(key);
