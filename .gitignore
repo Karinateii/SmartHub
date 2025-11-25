@@ -1,4 +1,5 @@
-# Build and runtime artifacts
+# Ignore personal notes
+.notes/# Build and runtime artifacts
 bin/
 obj/
 *.dll
