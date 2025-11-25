@@ -41,6 +41,15 @@ You can use the provided script to create a local `appsettings.json` from the ex
 ```powershell
 cd .\scripts
 ./setup-dev.ps1 -SetEnvVars
+Install Git hooks (optional):
+You can install the local git hooks (pre-commit) to help prevent committing secrets accidentally:
+
+```powershell
+cd .\scripts
+./install-hooks.ps1
+```
+
+This will copy `scripts/pre-commit.ps1` into your repository's `.git/hooks/pre-commit` as a shim script that runs the PowerShell check before commit.
 ```
 
 CI requirement:

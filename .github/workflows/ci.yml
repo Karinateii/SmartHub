@@ -20,11 +20,17 @@ jobs:
       run: dotnet restore SmartHub.sln
     - name: Ensure JWT secret is set in CI
       if: ${{ !secrets.JWT_KEY }}
-      run: |
+      run: |-
         echo "JWT_KEY secret is not defined. Please configure repository secret 'JWT_KEY' in GitHub settings for this workflow to run.";
         exit 1
     - name: Set JWT for build
       run: echo "JWT_KEY=${{ secrets.JWT_KEY }}" >> $GITHUB_ENV
+    - name: Check JWT length
+      run: |
+        if [ ${#JWT_KEY} -lt 32 ]; then
+          echo "JWT_KEY must be at least 32 characters long for HS256; current length=${#JWT_KEY}";
+          exit 1;
+        fi
     - name: Build
       run: dotnet build SmartHub.sln --configuration Release --no-restore
     - name: Test
