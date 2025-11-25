@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;
 using SmartHub.Api;
@@ -26,6 +27,18 @@ namespace SmartHub.Tests
           services.RemoveAll(typeof(SmartHubDbContext));
           services.AddDbContext<SmartHubDbContext>(options =>
             options.UseInMemoryDatabase("IntegrationTestDb"));
+        });
+        // Provide Jwt settings for integration test so tokens are generated
+        builder.ConfigureAppConfiguration((context, config) =>
+        {
+          var dict = new System.Collections.Generic.Dictionary<string, string?>
+          {
+            { "Jwt:Key", "01234567890123456789012345678901" },
+            { "Jwt:Issuer", "SmartHub" },
+            { "Jwt:Audience", "SmartHubClient" },
+            { "Jwt:ExpireMinutes", "60" }
+          };
+          config.AddInMemoryCollection(dict.Where(kvp => kvp.Value != null).ToDictionary(kvp => kvp.Key, kvp => kvp.Value!));
         });
       });
     }
