@@ -29,8 +29,7 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Configure JWT authentication if Jwt settings exist
-var jwtSection = builder.Configuration.GetSection("Jwt");
-var jwtKey = jwtSection.GetValue<string>("Key");
+var jwtKey = builder.Configuration["Jwt:Key"] ?? Environment.GetEnvironmentVariable("JWT_KEY");
 if (!string.IsNullOrEmpty(jwtKey))
 {
     var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
@@ -42,8 +41,8 @@ if (!string.IsNullOrEmpty(jwtKey))
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSection.GetValue<string>("Issuer"),
-                ValidAudience = jwtSection.GetValue<string>("Audience"),
+                ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                ValidAudience = builder.Configuration["Jwt:Audience"] ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
                 IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
             };
         });
@@ -74,9 +73,9 @@ using (var scope = app.Services.CreateScope())
         db.Database.Migrate();
     else
         db.Database.EnsureCreated();
-    var adminEmail = builder.Configuration["Admin:Email"] ?? "admin@localhost";
-    var adminPassword = builder.Configuration["Admin:Password"] ?? "Admin123!";
-    if (!db.Users.Any(u => u.Email == adminEmail))
+    var adminEmail = builder.Configuration["Admin:Email"] ?? Environment.GetEnvironmentVariable("ADMIN_EMAIL");
+    var adminPassword = builder.Configuration["Admin:Password"] ?? Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+    if (!string.IsNullOrEmpty(adminEmail) && !string.IsNullOrEmpty(adminPassword) && !db.Users.Any(u => u.Email == adminEmail))
     {
         var adminUser = new SmartHub.Domain.Entities.User
         {
