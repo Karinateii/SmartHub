@@ -18,6 +18,13 @@ jobs:
         dotnet-version: '8.0.x'
     - name: Restore dependencies
       run: dotnet restore SmartHub.sln
+    - name: Ensure JWT secret is set in CI
+      if: ${{ !secrets.JWT_KEY }}
+      run: |
+        echo "JWT_KEY secret is not defined. Please configure repository secret 'JWT_KEY' in GitHub settings for this workflow to run.";
+        exit 1
+    - name: Set JWT for build
+      run: echo "JWT_KEY=${{ secrets.JWT_KEY }}" >> $GITHUB_ENV
     - name: Build
       run: dotnet build SmartHub.sln --configuration Release --no-restore
     - name: Test

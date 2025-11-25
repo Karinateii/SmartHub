@@ -33,6 +33,18 @@ $env:JWT_ISSUER = "SmartHub"
 $env:JWT_AUDIENCE = "SmartHubClient"
 $env:ADMIN_EMAIL = "admin@example.com"
 $env:ADMIN_PASSWORD = "ChangeMe!123"
+```
+
+Local setup script:
+You can use the provided script to create a local `appsettings.json` from the example and optionally set local env variables in your current PowerShell session:
+
+```powershell
+cd .\scripts
+./setup-dev.ps1 -SetEnvVars
+```
+
+CI requirement:
+The GitHub Actions workflow now requires a repository secret named `JWT_KEY` to be set. The CI will fail (intentionally) if the secret is missing, and will set the `JWT_KEY` environment variable for the job if provided.
 dotnet run --project SmartHub.Api
 ```
 
