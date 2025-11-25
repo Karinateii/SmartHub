@@ -19,7 +19,7 @@ namespace SmartHub.Api.Controllers.Auth
 
 
     [HttpPost("register")]
-    [EnableRateLimiting("auth")]
+    [EnableRateLimiting("auth-register")]
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
@@ -29,7 +29,7 @@ namespace SmartHub.Api.Controllers.Auth
 
 
     [HttpPost("login")]
-    [EnableRateLimiting("auth")]
+    [EnableRateLimiting("auth-login")]
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
@@ -39,7 +39,7 @@ namespace SmartHub.Api.Controllers.Auth
 
 
     [HttpPost("refresh")]
-    [EnableRateLimiting("auth")]
+    [EnableRateLimiting("auth-refresh")]
     [AllowAnonymous]
     public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
     {

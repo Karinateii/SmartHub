@@ -54,19 +54,54 @@ builder.Services.AddRateLimiter(options =>
     });
 
     // Stricter policy for Auth endpoints
-    options.AddPolicy("auth", context =>
+    options.AddPolicy("auth-login", context =>
     {
         var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
         return RateLimitPartition.GetFixedWindowLimiter(
             partitionKey: ip,
             factory: _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 10,
+                PermitLimit = 5,
                 Window = TimeSpan.FromMinutes(1),
                 QueueLimit = 0,
                 QueueProcessingOrder = QueueProcessingOrder.OldestFirst
             });
     });
+    options.AddPolicy("auth-register", context =>
+    {
+        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: ip,
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 3,
+                Window = TimeSpan.FromHours(1),
+                QueueLimit = 0,
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst
+            });
+    });
+    options.AddPolicy("auth-refresh", context =>
+    {
+        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: ip,
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 30,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst
+            });
+    });
+
+    // Log rejections and return 429 with details
+    options.OnRejected = async (context, cancellationToken) =>
+    {
+        Log.Warning("Rate limit exceeded: Path={Path}, IP={IP}", context.HttpContext.Request.Path, context.HttpContext.Connection.RemoteIpAddress?.ToString());
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        context.HttpContext.Response.ContentType = "application/json";
+        await context.HttpContext.Response.WriteAsync("{\"error\":\"Too many requests\"}");
+    };
 });
 
 // Database connection
