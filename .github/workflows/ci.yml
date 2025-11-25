@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -36,6 +35,39 @@ jobs:
         fi
       env:
         JWT_KEY: ${{ secrets.JWT_KEY }}
+    - name: Build
+      run: dotnet build SmartHub.sln --configuration Release --no-restore
+    - name: Test
+      run: dotnet test SmartHub.sln --configuration Release --no-build --verbosity normal
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    - name: Restore dependencies
+      run: dotnet restore SmartHub.sln
+    - name: Ensure JWT secret is set and set JWT env
+      env:
+        JWT_KEY: ${{ secrets.JWT_KEY }}
+      run: |-
+        if (-not $env:JWT_KEY) {
+          Write-Host "JWT_KEY secret is not defined. Please configure repository secret 'JWT_KEY' in GitHub settings for this workflow to run."
+          exit 1
+        }
+      shell: pwsh
+    - name: Check JWT length
+      run: |
+        if ($env:JWT_KEY.Length -lt 32) {
+          Write-Host "JWT_KEY must be at least 32 characters long for HS256; current length=$($env:JWT_KEY.Length)"
+          exit 1
+        }
+      env:
+        JWT_KEY: ${{ secrets.JWT_KEY }}
+      shell: pwsh
     - name: Build
       run: dotnet build SmartHub.sln --configuration Release --no-restore
     - name: Test

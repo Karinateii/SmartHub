@@ -1,3 +1,4 @@
+using Serilog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SmartHub.Infrastructure.Persistence;
@@ -9,12 +10,28 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using SmartHub.Application.Validators.Auth;
 using SmartHub.Infrastructure.Services;
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/smarthub.log", rollingInterval: RollingInterval.Day)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
+
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+});
+builder.Services.AddHealthChecks();
 
 // Database connection
 // Use the key defined in appsettings.json (`SmartHubDatabase`)
@@ -48,6 +65,13 @@ if (!string.IsNullOrEmpty(jwtKey))
         });
 }
 
+// Fail fast if running in non-development without JWT configured
+if (string.IsNullOrEmpty(jwtKey) && !builder.Environment.IsDevelopment())
+{
+    // Running in a non-development environment without JWT key is insecure; fail fast
+    throw new InvalidOperationException("Missing JWT_KEY environment variable. Set JWT_KEY for authentication in production.");
+}
+
 
 var app = builder.Build();
 
@@ -58,11 +82,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 // Seed Admin user from environment variables (for dev)
 using (var scope = app.Services.CreateScope())
@@ -92,7 +118,20 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.Run();
+
+try
+{
+    Log.Information("Starting SmartHub API");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "SmartHub API terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
 // Allow WebApplicationFactory to reference Program class in integration tests
 public partial class Program { }
