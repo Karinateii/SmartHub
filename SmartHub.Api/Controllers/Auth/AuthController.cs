@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using SmartHub.Application.DTOs.Auth;
 using SmartHub.Application.Interfaces.Services;
 
@@ -18,6 +19,7 @@ namespace SmartHub.Api.Controllers.Auth
 
 
     [HttpPost("register")]
+    [EnableRateLimiting("auth")]
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
@@ -27,6 +29,7 @@ namespace SmartHub.Api.Controllers.Auth
 
 
     [HttpPost("login")]
+    [EnableRateLimiting("auth")]
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
@@ -36,6 +39,7 @@ namespace SmartHub.Api.Controllers.Auth
 
 
     [HttpPost("refresh")]
+    [EnableRateLimiting("auth")]
     [AllowAnonymous]
     public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
     {
