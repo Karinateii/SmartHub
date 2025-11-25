@@ -1,6 +1,7 @@
 using Serilog;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
+using SmartHub.Api.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SmartHub.Infrastructure.Persistence;
@@ -155,8 +156,10 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRateLimiter();
 
 app.MapControllers();
