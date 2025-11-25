@@ -16,8 +16,15 @@ $preCommitHook = Join-Path $HookPath "pre-commit"
 
 if (Test-Path $preCommitScript) {
     # Create a shim that runs the PowerShell script
-    $shim = @"#!/bin/sh
-pwsh -NoProfile -ExecutionPolicy Bypass -File \"$preCommitScript\" || exit 1
+        $shim = @"#!/bin/sh
+if command -v pwsh >/dev/null 2>&1; then
+    pwsh -NoProfile -ExecutionPolicy Bypass -File \"$preCommitScript\" || exit 1
+elif command -v powershell >/dev/null 2>&1; then
+    powershell -NoProfile -ExecutionPolicy Bypass -File \"$preCommitScript\" || exit 1
+else
+    echo 'PowerShell not found. Please install PowerShell or run scripts/pre-commit.ps1 manually to lint before committing.'
+    exit 1
+fi
 "@
     Set-Content -Path $preCommitHook -Value $shim -NoNewline
     git update-index --add --chmod=+x $preCommitHook
