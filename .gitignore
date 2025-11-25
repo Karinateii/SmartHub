@@ -10,6 +10,7 @@ appsettings.Development.json
 appsettings.Local.json
 appsettings.json
 appsettings.*.json
+!SmartHub.Api/appsettings.example.json
 .env
 .env.local
 *.user
