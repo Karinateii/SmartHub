@@ -46,7 +46,8 @@ namespace SmartHub.Infrastructure.Services
       await _dbContext.SaveChangesAsync();
 
       var authResponse = CreateAuthResponse(user);
-      user.RefreshToken = authResponse.RefreshToken;
+      var hashedRefresh = BCrypt.Net.BCrypt.HashPassword(authResponse.RefreshToken);
+      user.RefreshToken = hashedRefresh;
       user.RefreshTokenExpiry = authResponse.RefreshTokenExpiry;
       await _dbContext.SaveChangesAsync();
 
@@ -60,7 +61,8 @@ namespace SmartHub.Infrastructure.Services
         throw new InvalidOperationException("Invalid credentials.");
 
       var authResponse = CreateAuthResponse(user);
-      user.RefreshToken = authResponse.RefreshToken;
+      var hashedRefresh2 = BCrypt.Net.BCrypt.HashPassword(authResponse.RefreshToken);
+      user.RefreshToken = hashedRefresh2;
       user.RefreshTokenExpiry = authResponse.RefreshTokenExpiry;
       await _dbContext.SaveChangesAsync();
 
@@ -69,16 +71,31 @@ namespace SmartHub.Infrastructure.Services
 
     public async Task<AuthResponse> RefreshTokenAsync(string refreshToken)
     {
-      var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+      // find users with a refresh token set and verify the provided token against the hashed value
+      var usersWithToken = await _dbContext.Users.Where(u => u.RefreshToken != null).ToListAsync();
+      var user = usersWithToken.FirstOrDefault(u => BCrypt.Net.BCrypt.Verify(refreshToken, u.RefreshToken));
       if (user == null || user.RefreshTokenExpiry == null || user.RefreshTokenExpiry <= DateTime.UtcNow)
         throw new InvalidOperationException("Invalid or expired refresh token.");
 
       var authResponse = CreateAuthResponse(user);
-      user.RefreshToken = authResponse.RefreshToken;
+      var hashedRefresh3 = BCrypt.Net.BCrypt.HashPassword(authResponse.RefreshToken);
+      user.RefreshToken = hashedRefresh3;
       user.RefreshTokenExpiry = authResponse.RefreshTokenExpiry;
       await _dbContext.SaveChangesAsync();
 
       return authResponse;
+    }
+
+    public async Task RevokeRefreshTokenAsync(string refreshToken)
+    {
+      var usersWithToken = await _dbContext.Users.Where(u => u.RefreshToken != null).ToListAsync();
+      var user = usersWithToken.FirstOrDefault(u => BCrypt.Net.BCrypt.Verify(refreshToken, u.RefreshToken));
+      if (user == null)
+        throw new InvalidOperationException("Invalid refresh token.");
+
+      user.RefreshToken = null;
+      user.RefreshTokenExpiry = null;
+      await _dbContext.SaveChangesAsync();
     }
 
     private AuthResponse CreateAuthResponse(User user)

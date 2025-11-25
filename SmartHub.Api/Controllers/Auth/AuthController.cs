@@ -35,5 +35,12 @@ namespace SmartHub.Api.Controllers.Auth
       var response = await _authService.RefreshTokenAsync(request.RefreshToken);
       return Ok(response);
     }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout([FromBody] RefreshTokenRequest request)
+    {
+      await _authService.RevokeRefreshTokenAsync(request.RefreshToken);
+      return NoContent();
+    }
   }
 }

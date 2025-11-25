@@ -65,4 +65,35 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Seed Admin user from environment variables (for dev)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SmartHubDbContext>();
+    // For relational providers, run migrations; for in-memory (tests), ensure DB is created
+    if (db.Database.IsRelational())
+        db.Database.Migrate();
+    else
+        db.Database.EnsureCreated();
+    var adminEmail = builder.Configuration["Admin:Email"] ?? "admin@localhost";
+    var adminPassword = builder.Configuration["Admin:Password"] ?? "Admin123!";
+    if (!db.Users.Any(u => u.Email == adminEmail))
+    {
+        var adminUser = new SmartHub.Domain.Entities.User
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "Admin",
+            LastName = "Account",
+            Email = adminEmail,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword),
+            Role = SmartHub.Domain.Enums.Role.Admin,
+            EmailVerified = true
+        };
+        db.Users.Add(adminUser);
+        db.SaveChanges();
+    }
+}
+
 app.Run();
+
+// Allow WebApplicationFactory to reference Program class in integration tests
+public partial class Program { }
