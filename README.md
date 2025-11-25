@@ -1,3 +1,21 @@
+## Secret Rotation
+- Purpose: Rotate `JWT_KEY` and admin credentials safely without downtime.
+- Steps:
+	- Local/dev:
+		- Update your environment variables (PowerShell):
+			- `$env:JWT_KEY = "<new-long-random-key>"`
+			- `$env:ADMIN_EMAIL = "admin@example.com"`; `$env:ADMIN_PASSWORD = "<new-strong-password>"`
+		- Restart the app to load new values.
+	- CI/CD:
+		- In GitHub repo settings → Secrets and variables → Actions:
+			- Update `JWT_KEY` with a new value (≥32 chars).
+			- Optionally rotate admin credentials used in seeding.
+		- The CI workflow validates the presence and length of `JWT_KEY`.
+	- Rolling change:
+		- If clients hold old tokens, consider a grace period where both old and new keys are accepted. Otherwise, revoke sessions and prompt re-login.
+	- Never commit secrets:
+		- Keep secrets in environment variables or secret stores.
+		- Use `appsettings.example.json` as a template only.
 # SmartHub
 
 SmartHub is a modular .NET 8 web API following Clean Architecture principles. This repository contains API, Application, Domain, and Infrastructure layers.
