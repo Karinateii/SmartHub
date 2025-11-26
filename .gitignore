@@ -1,39 +1,330 @@
-# Ignore personal notes
-.notes/# Build and runtime artifacts
-bin/
-obj/
+####################
+# SmartHub .gitignore
+####################
+
+# Build and runtime artifacts
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 *.dll
 *.exe
 *.pdb
+*.cache
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
-# Configuration and secrets
+# Visual Studio files
+.vs/
+.vscode/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# MonoDevelop/Xamarin Studio
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Configuration and secrets - NEVER COMMIT THESE
+appsettings.json
 appsettings.Development.json
 appsettings.Local.json
-appsettings.json
+appsettings.Production.json
+appsettings.Staging.json
 appsettings.*.json
+!appsettings.example.json
 !SmartHub.Api/appsettings.example.json
 .env
 .env.local
-*.user
-*.suo
+.env.development
+.env.production
+.env.staging
+*.key
+*.secret
+secrets.json
 
-# IDE and editor
-.vscode/
-.vs/
-.idea/
-*.swp
-*.swo
-
-# Database and logs
+# Database files
 *.db
+*.db-shm
+*.db-wal
 *.mdf
 *.ldf
+*.ndf
+
+# Logs and temp files
 *.log
+logs/
+Logs/
+*.tmp
+*.temp
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp_proj
+*_wpftmp.csproj
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
 
-# Dependencies
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+TestResults/
+*.dotcover
+
+# NuGet packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Entity Framework
+*.edmx.diagram
+*.edmx.sql
+
+# Migrations backup (optional - uncomment if you want to ignore migrations)
+# **/Migrations/
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# TeamCity
+_TeamCity*
+
+# DotCover
+*.dotCover
+
+# AxoCover
+.axoCover/*
+!.axoCover/settings.json
+
+# Coverlet
+coverage*.json
+coverage*.xml
+coverage*.info
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# TFS
+$tf/
+
+# Guidance Automation Toolkit
+*.gpState
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+*.ncrunchsolution
+*.ncrunchproject
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# Web workbench (sass)
+.sass-cache/
+
+# Installshield
+[Ee]xpress/
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/Html2
+DocProject/Help/html
+
+# Click-Once directory
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+*.pubxml
+*.publishproj
+
+# Microsoft Azure Web App publish settings
+PublishScripts/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+
+# Microsoft Azure Emulator
+ecf/
+rcf/
+
+# Windows Store app package directories
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+
+# Visual Studio cache
+.vs/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# CodeRush personal settings
+.cr/personal
+
+# Python Tools for Visual Studio (PTVS)
+__pycache__/
+*.pyc
+
+# Cake
+tools/**
+!tools/packages.config
+
+# Node modules (if using any JS build tools)
 node_modules/
-packages/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS
+# Webpack (if applicable)
+dist/
+*.hot-update.js
+*.hot-update.json
+
+# Mac OS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
 Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Personal notes
+.notes/
+notes.txt
+TODO.txt
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Local History (VS Code extension)
+.history/
+.ionide/
+
+# BeatPulse healthcheck temp files
+healthchecksdb
+
+# Backup folder for Package Reference Convert tool
+MigrationBackup/
+
+# Ionide (VSCode F# extension)
+.ionide/
+
+# Fody (weaving)
+FodyWeavers.xsd

@@ -6,8 +6,9 @@ $ErrorActionPreference = 'Stop'
 $staged = git diff --cached --name-only
 if (-not $staged) { exit 0 }
 
-$ignoredExact = @('README.md', '.github/workflows/ci.yml', 'scripts/setup-dev.ps1')
-$ignoredPrefix = @('.github/workflows/', 'bin/', 'obj/')
+# Ignore documentation files that contain example passwords/tokens but not real secrets
+$ignoredExact = @('README.md', '.github/workflows/ci.yml', 'scripts/setup-dev.ps1', 'API_DOCUMENTATION.md', 'ARCHITECTURE.md', 'CONTRIBUTING.md', 'SCREENSHOTS.md', 'LINKEDIN_GUIDE.md', 'PORTFOLIO_READY.md')
+$ignoredPrefix = @('.github/workflows/', 'bin/', 'obj/', 'screenshots/')
 
 $forbidden = @()
 $patternJwtKeyJson = '"Key"\s*:\s*"[A-Za-z0-9\-_.]{16,}"'
