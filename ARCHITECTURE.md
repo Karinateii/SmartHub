@@ -69,7 +69,7 @@ SmartHub implements **Clean Architecture** (also known as Onion Architecture or 
 │  │   - Product │  │          │  │                            │ │
 │  └─────────────┘  └──────────┘  └────────────────────────────┘ │
 │                                                                  │
-│         ⚠️  NO EXTERNAL DEPENDENCIES - PURE BUSINESS LOGIC       │
+│         NOTE: No external dependencies in the Domain layer - keep business logic isolated       │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -81,12 +81,12 @@ SmartHub implements **Clean Architecture** (also known as Onion Architecture or 
 **Purpose:** Contains the business logic and domain entities. This is the heart of the application.
 
 **Characteristics:**
-- ✅ **Zero external dependencies** (no NuGet packages except maybe basic utilities)
-- ✅ Contains business entities (`User`, `Order`, `Product`)
-- ✅ Contains enums (`Role`)
-- ✅ Contains value objects
-- ✅ Contains domain events (if needed)
-- ✅ Contains business rules and invariants
+- Zero external dependencies (no NuGet packages in the Domain layer except minimal utilities)
+- Contains business entities (`User`, `Order`, `Product`)
+- Contains enums (`Role`)
+- Contains value objects
+- Contains domain events (if needed)
+- Contains business rules and invariants
 
 **Files:**
 ```
@@ -122,11 +122,11 @@ public class User : AuditableEntity
 **Purpose:** Orchestrates the flow of data between the Domain and Infrastructure layers. Defines use cases and DTOs.
 
 **Characteristics:**
-- ✅ Depends **only** on Domain layer
-- ✅ Defines interfaces (contracts) for services and repositories
-- ✅ Contains DTOs for data transfer
-- ✅ Contains validators (FluentValidation)
-- ✅ No direct database or external service access
+- Depends only on the Domain layer
+- Defines interfaces (contracts) for services and repositories
+- Contains DTOs for data transfer
+- Contains validators (FluentValidation)
+- No direct database or external service access
 
 **Files:**
 ```
@@ -168,12 +168,12 @@ public interface IAuthService
 **Purpose:** Implements interfaces defined in the Application layer. Handles data persistence, external APIs, file systems, etc.
 
 **Characteristics:**
-- ✅ Depends on Application and Domain layers
-- ✅ Implements repository and service interfaces
-- ✅ Contains EF Core `DbContext`
-- ✅ Contains entity configurations (Fluent API)
-- ✅ Handles database migrations
-- ✅ External service integrations (email, SMS, etc.)
+- Depends on Application and Domain layers
+- Implements repository and service interfaces
+- Contains EF Core `DbContext`
+- Contains entity configurations (Fluent API)
+- Handles database migrations
+- External service integrations (email, SMS, etc.)
 
 **Files:**
 ```
@@ -219,12 +219,12 @@ public class AuthService : IAuthService
 **Purpose:** Exposes the application functionality via HTTP endpoints. Handles HTTP concerns.
 
 **Characteristics:**
-- ✅ Depends on Application and Infrastructure layers
-- ✅ Contains controllers
-- ✅ Contains middleware
-- ✅ Contains startup configuration
-- ✅ Handles authentication/authorization
-- ✅ Manages API documentation (Swagger)
+- Depends on Application and Infrastructure layers
+- Contains controllers
+- Contains middleware
+- Contains startup configuration
+- Handles authentication/authorization
+- Manages API documentation (Swagger)
 
 **Files:**
 ```
@@ -382,25 +382,25 @@ Controller → IAuthService ← AuthService → Database
 
 ## Benefits of This Architecture
 
-### ✅ Testability
-- **Unit tests:** Test business logic in Domain without dependencies
-- **Integration tests:** Test API endpoints with in-memory database
-- **Mock interfaces:** Easy to mock `IAuthService`, `IUserRepository`
+### Testability
+- Unit tests: test business logic in Domain without external dependencies
+- Integration tests: test API endpoints with an in-memory database
+- Mock interfaces: easy to mock `IAuthService` and `IUserRepository`
 
-### ✅ Maintainability
-- **Clear boundaries:** Each layer has specific responsibilities
-- **Easy to navigate:** Predictable project structure
-- **Separation of concerns:** Business logic separate from infrastructure
+### Maintainability
+- Clear boundaries: each layer has specific responsibilities
+- Easy to navigate: predictable project structure
+- Separation of concerns: business logic is separate from infrastructure
 
-### ✅ Flexibility
-- **Swap databases:** Change from SQL Server to PostgreSQL by updating Infrastructure
-- **Change authentication:** Replace JWT with OAuth2 without touching Domain
-- **Add new features:** Add new entities to Domain without breaking existing code
+### Flexibility
+- Swap databases: change from SQL Server to PostgreSQL by updating the Infrastructure layer
+- Change authentication: replace JWT with OAuth2 without touching Domain
+- Add new features: add new entities to Domain without breaking existing code
 
-### ✅ Scalability
-- **Team collaboration:** Different teams can work on different layers
-- **Microservices ready:** Domain and Application layers can be reused
-- **Performance:** Infrastructure can be optimized without changing business logic
+### Scalability
+- Team collaboration: different teams can work on different layers
+- Microservices: Domain and Application layers can be reused across services
+- Performance: Infrastructure can be optimized without changing business logic
 
 ---
 

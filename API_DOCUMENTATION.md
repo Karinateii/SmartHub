@@ -545,10 +545,10 @@ https://localhost:7xxx/swagger
 ```
 
 Features:
-- ✅ Try out endpoints directly
-- ✅ View request/response schemas
-- ✅ Test authentication flow
-- ✅ Export OpenAPI specification
+- Try out endpoints directly
+- View request/response schemas
+- Test authentication flow
+- Export OpenAPI specification
 
 ---
 

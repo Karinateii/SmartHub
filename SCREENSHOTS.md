@@ -1,25 +1,22 @@
 # SmartHub Screenshots Guide
 
-This guide will help you capture professional screenshots to showcase your SmartHub project on LinkedIn, GitHub, and your portfolio.
+This guide helps you capture screenshots to showcase the SmartHub project on LinkedIn, GitHub, and your portfolio.
 
-## 📸 Essential Screenshots
+## Essential screenshots
 
-### 1. Swagger API Documentation (Must Have!)
+### 1. Swagger API documentation
 
-**What to capture:** The Swagger UI showing all your API endpoints
+What to capture: the Swagger UI showing your API endpoints
 
-**Steps:**
+Steps:
 1. Run the application: `dotnet run --project SmartHub.Api`
-2. Open browser: `https://localhost:7xxx/swagger`
-3. Click on "Auth" section to expand authentication endpoints
-4. Take a full-page screenshot showing:
-   - All endpoint sections (Auth, Users, etc.)
-   - HTTP methods (POST, GET, etc.)
-   - Endpoint descriptions
+2. Open the Swagger page: `https://localhost:7xxx/swagger`
+3. Expand the main sections (Auth, Users, etc.)
+4. Capture a full-page screenshot that shows endpoints, methods, and descriptions
 
-**Why:** Shows professional API documentation and modern development practices
+Why: demonstrates API documentation and endpoint design
 
-**Save as:** `screenshots/swagger-overview.png`
+Save as: `screenshots/swagger-overview.png`
 
 ---
 
@@ -39,24 +36,11 @@ This guide will help you capture professional screenshots to showcase your Smart
 
 ---
 
-### 3. Postman Collection
+### 3. Postman collection
 
-**What to capture:** Postman with your API tests
+Capture a Postman collection or API client showing successful requests and responses. Include register, login, refresh token, and profile requests.
 
-**Steps:**
-1. Import or create API requests in Postman
-2. Create a collection named "SmartHub API"
-3. Add requests for:
-   - Register
-   - Login
-   - Refresh Token
-   - Get User Profile
-4. Show successful responses with JSON data
-5. Optionally show test scripts and environment variables
-
-**Why:** Shows API testing and quality assurance practices
-
-**Save as:** `screenshots/postman-collection.png`
+Save as: `screenshots/postman-collection.png`
 
 ---
 
@@ -102,24 +86,11 @@ Table Users {
 
 ---
 
-### 5. Visual Studio Solution Structure
+### 5. Solution structure
 
-**What to capture:** Solution Explorer showing Clean Architecture layers
+Capture the solution explorer showing project structure (Api, Application, Infrastructure, Domain, Tests) to demonstrate the Clean Architecture layout.
 
-**Steps:**
-1. Open SmartHub.sln in Visual Studio
-2. Expand all projects in Solution Explorer:
-   - SmartHub.Api
-   - SmartHub.Application
-   - SmartHub.Infrastructure
-   - SmartHub.Domain
-   - SmartHub.Tests
-3. Expand key folders to show organization
-4. Take screenshot showing the hierarchy
-
-**Why:** Demonstrates Clean Architecture implementation
-
-**Save as:** `screenshots/solution-structure.png`
+Save as: `screenshots/solution-structure.png`
 
 ---
 
@@ -142,21 +113,11 @@ Table Users {
 
 ---
 
-### 7. Tests Running Successfully
+### 7. Test results
 
-**What to capture:** Test results showing all tests passing
+Capture test output that shows passing tests. This can be a screenshot of Test Explorer or terminal output from `dotnet test`.
 
-**Steps:**
-1. Run tests: `dotnet test`
-2. If using Visual Studio: Test Explorer showing green checkmarks
-3. If using terminal: Capture output showing:
-   ```
-   Passed!  - Failed:     0, Passed:    XX, Skipped:     0, Total:    XX
-   ```
-
-**Why:** Demonstrates testing and quality assurance
-
-**Save as:** `screenshots/tests-passing.png`
+Save as: `screenshots/tests-passing.png`
 
 ---
 
@@ -180,19 +141,20 @@ Table Users {
 
 ---
 
-### 9. API Response Example (Terminal/Postman)
+### 9. API response example (terminal or client)
 
-**What to capture:** Successful API request/response
+Capture a real API request and response from Postman or a terminal client to show the API in action.
 
-**Steps using PowerShell:**
+Example PowerShell snippet (for local testing):
+
 ```powershell
 # Register request
 $body = @{
-    firstName = "Demo"
-    lastName = "User"
-    email = "demo@example.com"
-    password = "SecurePass123!"
-    confirmPassword = "SecurePass123!"
+   firstName = "Demo"
+   lastName = "User"
+   email = "demo@example.com"
+   password = "SecurePass123!"
+   confirmPassword = "SecurePass123!"
 } | ConvertTo-Json
 
 $response = Invoke-RestMethod -Uri "https://localhost:7xxx/api/auth/register" -Method POST -Body $body -ContentType "application/json" -SkipCertificateCheck
@@ -200,9 +162,7 @@ $response = Invoke-RestMethod -Uri "https://localhost:7xxx/api/auth/register" -M
 $response | ConvertTo-Json -Depth 10
 ```
 
-**Why:** Shows your API in action with real data
-
-**Save as:** `screenshots/api-response-example.png`
+Save as: `screenshots/api-response-example.png`
 
 ---
 
@@ -248,29 +208,18 @@ SmartHub/
 
 ---
 
-## 🎨 Screenshot Best Practices
+## Screenshot best practices
 
-### Image Quality
-- ✅ Use high resolution (1920x1080 or better)
-- ✅ Ensure text is readable when viewing at LinkedIn size
-- ✅ Use PNG format for sharp text
-- ✅ Crop unnecessary UI elements (taskbar, personal info)
+Image quality
+- Use sufficient resolution so text remains readable (for example 1920x1080)
+- Prefer PNG for screenshots with text
 
-### Visual Themes
-- ✅ Use dark themes (looks more professional)
-- ✅ Consistent theme across all screenshots
-- ✅ High contrast for readability
+Visual themes
+- Use a consistent theme across screenshots
 
-### Content Guidelines
-- ⚠️ **Remove sensitive information:**
-  - Your real email addresses
-  - Actual passwords
-  - Connection strings with real servers
-  - Personal file paths
-- ✅ Use demo data:
-  - demo@example.com
-  - John Doe, Jane Smith
-  - Test123! passwords (in examples)
+Content guidelines
+- Remove or redact sensitive information (real emails, passwords, connection strings, personal file paths)
+- Use clearly labeled demo data (for example: demo@example.com)
 
 ### Tools for Screenshots
 
@@ -288,7 +237,7 @@ SmartHub/
 
 ---
 
-## 🖼️ Using Screenshots on LinkedIn
+## Using Screenshots on LinkedIn
 
 ### LinkedIn Project Section
 
@@ -311,27 +260,18 @@ SmartHub/
 Create a carousel post:
 
 ```
-🚀 Excited to share my latest project: SmartHub!
+Excited to share my latest project: SmartHub
 
-A production-ready .NET 8 Web API built with:
-✅ Clean Architecture
-✅ JWT Authentication
-✅ Entity Framework Core
-✅ CI/CD Pipeline
-✅ Comprehensive Testing
+SmartHub is a production-ready .NET 8 Web API demonstrating clean architecture, secure authentication, and automated testing and CI workflows.
 
-Swipe to see screenshots →
-
-[Add 10 screenshots as carousel]
+Add screenshots showing the API, architecture, CI status, and tests.
 
 GitHub: https://github.com/Karinateii/SmartHub
-
-#dotnet #aspnetcore #webapi #cleanarchitecture #softwareengineering
 ```
 
 ---
 
-## 📊 Priority Order
+## Priority Order
 
 If you can only capture a few, prioritize these:
 
@@ -358,17 +298,17 @@ If you can only capture a few, prioritize these:
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
-1. [ ] Run your application locally
-2. [ ] Capture all 10 recommended screenshots
-3. [ ] Create `screenshots/` folder in your repo
-4. [ ] Update README.md to reference screenshots
-5. [ ] Upload to LinkedIn Featured section
-6. [ ] Create a LinkedIn post showcasing your work
+1. Run your application locally
+2. Capture the recommended screenshots
+3. Create the `screenshots/` folder in your repo
+4. Update `README.md` to reference screenshots
+5. Upload selected images to LinkedIn Featured section
+6. Create a LinkedIn post showcasing the work
 
 ---
 
 **Need help?** Open an issue or check the [README.md](./README.md) for setup instructions.
 
-**Ready to showcase?** Follow this guide and make your SmartHub project stand out! 🌟
+**Ready to showcase?** Follow this guide to prepare images for LinkedIn and your portfolio.

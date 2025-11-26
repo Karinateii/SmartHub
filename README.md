@@ -1,13 +1,13 @@
-# 🚀 SmartHub
+# SmartHub
 
 [![.NET CI](https://github.com/Karinateii/SmartHub/actions/workflows/ci.yml/badge.svg)](https://github.com/Karinateii/SmartHub/actions/workflows/ci.yml)
 [![.NET Version](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
-> A production-ready RESTful API built with .NET 8 following Clean Architecture principles, featuring JWT authentication, comprehensive security, and modern development practices.
+> A production-ready RESTful API built with .NET 8 following Clean Architecture principles, featuring JWT authentication, security best practices, and modern development workflows.
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
@@ -20,23 +20,23 @@
 - [Contributing](#-contributing)
 - [License](#-license)
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication & Authorization
+### Authentication & Authorization
 - **JWT Token-based Authentication** with refresh token support
 - **Role-based Access Control** (User, Admin)
 - **Secure Password Hashing** with BCrypt
 - **Email Verification** system ready
 - **Token Refresh & Revocation** mechanisms
 
-### 🛡️ Security
+### Security
 - **Rate Limiting** on sensitive endpoints (login, register, refresh)
 - **Environment-based Secret Management** (no hardcoded secrets)
 - **Git Pre-commit Hooks** to prevent secret commits
 - **Secure Token Storage** with hashed refresh tokens
 - **HTTPS Redirection** enforced
 
-### 🏗️ Architecture & Code Quality
+### Architecture & Code Quality
 - **Clean Architecture** (Domain, Application, Infrastructure, API layers)
 - **Entity Framework Core** with SQL Server
 - **FluentValidation** for request validation
@@ -44,19 +44,19 @@
 - **Health Check Endpoints** for monitoring
 - **Exception Handling Middleware** for centralized error management
 
-### 🧪 Testing & CI/CD
+### Testing & CI/CD
 - **Integration Tests** with in-memory database
 - **Unit Tests** for business logic
 - **GitHub Actions CI/CD** (Ubuntu & Windows runners)
 - **Automated JWT Secret Validation** in CI pipeline
 
-### 📊 API Features
+### API Features
 - **RESTful Design** principles
 - **Swagger/OpenAPI Documentation** with XML comments
 - **Consistent Response Formats**
 - **CORS Ready** for frontend integration
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend Framework
 - **.NET 8** - Latest LTS version
@@ -84,7 +84,7 @@
 - **GitHub Actions** - CI/CD pipeline
 - **PowerShell Scripts** - Development automation
 
-## 🏛️ Architecture
+## Architecture
 
 SmartHub follows **Clean Architecture** principles with clear separation of concerns:
 
@@ -111,14 +111,14 @@ SmartHub follows **Clean Architecture** principles with clear separation of conc
 ```
 
 **Key Benefits:**
-- ✅ **Testability**: Business logic independent of external dependencies
-- ✅ **Maintainability**: Clear boundaries between layers
-- ✅ **Flexibility**: Easy to swap implementations (e.g., change database)
-- ✅ **Scalability**: Clean separation enables team collaboration
+- **Testability**: Business logic independent of external dependencies
+- **Maintainability**: Clear boundaries between layers
+- **Flexibility**: Easy to swap implementations (for example: change database)
+- **Scalability**: Clear separation enables team collaboration
 
-> 📖 See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed architecture documentation
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed architecture documentation
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -134,17 +134,17 @@ git clone https://github.com/Karinateii/SmartHub.git
 cd SmartHub
 ```
 
-2️⃣ **Run the setup script** (recommended)
+2. Run the setup script (recommended)
 ```powershell
 cd scripts
 ./setup-dev.ps1 -SetEnvVars
 ```
 
-This script will:
-- Create `appsettings.json` from the example template
-- Generate secure JWT secrets
-- Set environment variables for your session
-- Validate your setup
+The script performs common development setup tasks:
+- Creates `appsettings.json` from the example template
+- Generates JWT secrets for local development
+- Sets environment variables for your session
+- Performs basic validation of your environment
 
 3️⃣ **Apply database migrations**
 ```powershell
@@ -183,7 +183,7 @@ $env:ADMIN_PASSWORD = "SecurePass123!"
 }
 ```
 
-## 📚 API Documentation
+## API Documentation
 
 ### Authentication Endpoints
 
@@ -226,7 +226,7 @@ Content-Type: application/json
 
 > 📖 See [API_DOCUMENTATION.md](./API_DOCUMENTATION.md) for comprehensive API reference
 
-## 🔒 Security
+## Security
 
 ### Secret Management
 
@@ -270,9 +270,9 @@ $env:JWT_KEY = "new-secure-key-at-least-32-chars"
 3. Redeploy application
 4. Consider token grace period or force user re-login
 
-> 🛡️ The CI pipeline validates JWT_KEY presence and length (≥32 chars)
+The CI pipeline validates `JWT_KEY` presence and length (≥32 chars)
 
-## 🧪 Testing
+## Testing
 
 ### Run All Tests
 
@@ -292,13 +292,13 @@ dotnet test SmartHub.Tests/SmartHub.Tests.csproj --filter Category=Integration
 
 ### Test Coverage
 
-- ✅ Authentication flow (register → login → refresh → logout)
-- ✅ Token generation and validation
-- ✅ Refresh token rotation
-- ✅ FluentValidation rules
-- ✅ Integration tests with in-memory database
+- Authentication flow (register → login → refresh → logout)
+- Token generation and validation
+- Refresh token rotation
+- FluentValidation rules
+- Integration tests with in-memory database
 
-## 📜 Scripts
+## Scripts
 
 SmartHub includes automation scripts in the `scripts/` directory:
 
@@ -322,7 +322,7 @@ SmartHub includes automation scripts in the `scripts/` directory:
 ./scripts/smoke-test.ps1
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on:
 - Code of conduct
@@ -330,16 +330,10 @@ Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 - Pull request process
 - Coding standards
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
-<div align="center">
-
-**Built with ❤️ using .NET 8 and Clean Architecture**
-
-[Report Bug](https://github.com/Karinateii/SmartHub/issues) • [Request Feature](https://github.com/Karinateii/SmartHub/issues)
-
-</div>
+For issues and feature requests, see: [Report Bug](https://github.com/Karinateii/SmartHub/issues) • [Request Feature](https://github.com/Karinateii/SmartHub/issues)

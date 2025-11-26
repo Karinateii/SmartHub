@@ -1,6 +1,6 @@
 # LinkedIn Project Showcase Guide
 
-## 📱 How to Add SmartHub to Your LinkedIn Profile
+## How to Add SmartHub to Your LinkedIn Profile
 
 ### Step 1: Navigate to Your Profile
 
@@ -11,7 +11,7 @@
 
 ---
 
-## 🎯 Option A: Featured Section (Recommended)
+## Option A: Featured Section (Recommended)
 
 ### What to Include
 
@@ -19,23 +19,15 @@
 
 **Description:**
 ```
-A production-ready RESTful API built with .NET 8, demonstrating modern software engineering practices including Clean Architecture, JWT authentication, comprehensive testing, and automated CI/CD pipelines.
+A production-ready RESTful API built with .NET 8, demonstrating modern software engineering practices including Clean Architecture, JWT authentication, automated testing, and CI/CD workflows.
 
-🔹 Tech Stack: .NET 8, ASP.NET Core, Entity Framework Core, SQL Server
-🔹 Architecture: Clean Architecture with Domain-Driven Design principles
-🔹 Security: JWT authentication, BCrypt password hashing, rate limiting
-🔹 DevOps: GitHub Actions CI/CD, automated testing on Ubuntu & Windows
-🔹 Testing: Unit tests, integration tests with in-memory database
-🔹 Logging: Structured logging with Serilog
+Tech Stack: .NET 8, ASP.NET Core, Entity Framework Core, SQL Server
+Security: JWT authentication, BCrypt password hashing, rate limiting
+DevOps: GitHub Actions CI/CD, automated testing
+Testing: Unit and integration tests
+Logging: Structured logging with Serilog
 
-Key Features:
-✅ Role-based authorization (Admin, User)
-✅ Refresh token rotation for enhanced security
-✅ Swagger/OpenAPI documentation
-✅ FluentValidation for request validation
-✅ Global exception handling middleware
-✅ IP-based rate limiting
-✅ Health check endpoints for monitoring
+Key features: role-based authorization, refresh token rotation, Swagger/OpenAPI documentation, FluentValidation, global exception handling, rate limiting, health checks
 
 GitHub: https://github.com/Karinateii/SmartHub
 ```
@@ -44,83 +36,44 @@ GitHub: https://github.com/Karinateii/SmartHub
 
 ---
 
-## 🎯 Option B: LinkedIn Post (Maximum Reach)
+## Option B: LinkedIn Post (Carousel)
 
-### Post Template (Carousel Format)
+### Post template (carousel format)
 
 ```
-🚀 Excited to share my latest project: SmartHub!
+Announcing my latest project: SmartHub
 
-I've been working on a production-ready .NET 8 Web API that showcases modern software engineering practices. This project demonstrates my ability to build scalable, secure, and maintainable backend systems.
+SmartHub is a production-ready .NET 8 Web API that demonstrates secure and maintainable backend development.
 
-🏗️ Architecture Highlights:
-✅ Clean Architecture with clear separation of concerns
-✅ Domain-Driven Design principles
-✅ Dependency Injection throughout
-✅ SOLID principles applied consistently
+Architecture highlights:
+- Clean Architecture and separation of concerns
+- Dependency Injection and SOLID principles
 
-🔐 Security & Best Practices:
-✅ JWT authentication with refresh token rotation
-✅ BCrypt password hashing
-✅ IP-based rate limiting
-✅ Secure secret management with environment variables
-✅ Pre-commit hooks to prevent secret leaks
+Security and best practices:
+- JWT authentication with refresh token rotation
+- BCrypt password hashing and rate limiting
+- Environment-based secret management and pre-commit checks
 
-🧪 Quality Assurance:
-✅ Unit tests for business logic
-✅ Integration tests for API endpoints
-✅ GitHub Actions CI/CD on both Ubuntu and Windows
-✅ Automated build and test pipeline
+Quality assurance:
+- Unit and integration tests
+- CI workflows (GitHub Actions) that run builds and tests
 
-🛠️ Tech Stack:
-• .NET 8 & ASP.NET Core Web API
-• Entity Framework Core with SQL Server
-• Serilog for structured logging
-• FluentValidation for request validation
-• Swagger/OpenAPI for documentation
-• xUnit for testing
+Tech stack: .NET 8, ASP.NET Core, EF Core, Serilog, FluentValidation, xUnit
 
-📚 The repository includes comprehensive documentation:
-• Architecture diagrams and explanations
-• API documentation with examples
-• Contributing guidelines
-• Step-by-step setup instructions
+Repository: https://github.com/Karinateii/SmartHub
 
-This project represents my commitment to writing clean, testable, and maintainable code. I'm always looking to improve and learn from the community!
+[Add screenshots as carousel images]
 
-🔗 Check out the repository: https://github.com/Karinateii/SmartHub
-
-[Add 10 screenshots as carousel images]
-
-#DotNet #AspNetCore #WebAPI #SoftwareEngineering #CleanArchitecture #BackendDevelopment #API #JWT #EntityFramework #CI_CD #GitHub #OpenSource #SoftwareDevelopment #Coding #Tech
+#DotNet #AspNetCore #WebAPI #CleanArchitecture #BackendDevelopment
 ```
 
-### Hashtag Strategy
+### Hashtag strategy
 
-**Primary (High Engagement):**
-- #DotNet
-- #SoftwareEngineering
-- #BackendDevelopment
-- #WebAPI
-- #Coding
-
-**Technical (Target Audience):**
-- #AspNetCore
-- #CleanArchitecture
-- #EntityFramework
-- #JWT
-- #CI_CD
-
-**General Tech:**
-- #Tech
-- #Programming
-- #Developer
-- #OpenSource
-- #GitHub
+Use a small set of relevant hashtags to reach your target audience, mixing platform-level and technical tags (for example: #DotNet, #AspNetCore, #CleanArchitecture, #WebAPI).
 
 ---
 
-## 🎯 Option C: Projects Section (Detailed)
+## Option C: Projects Section (Detailed)
 
 ### Navigate to Projects
 
@@ -225,7 +178,7 @@ GitHub Repository: https://github.com/Karinateii/SmartHub
 
 ---
 
-## 📸 Screenshot Selection for LinkedIn
+## Screenshot Selection for LinkedIn
 
 ### Featured Section (Upload 4-6 Images)
 
@@ -259,7 +212,7 @@ GitHub Repository: https://github.com/Karinateii/SmartHub
 
 ---
 
-## 💼 Resume Integration
+## Resume Integration
 
 ### Project Section in Resume
 
@@ -277,7 +230,7 @@ GitHub Repository: https://github.com/Karinateii/SmartHub
 
 ---
 
-## 🎤 Talking Points for Interviews
+## Talking Points for Interviews
 
 When discussing SmartHub in interviews, emphasize:
 
@@ -303,18 +256,9 @@ When discussing SmartHub in interviews, emphasize:
 
 ---
 
-## 📊 Key Metrics to Mention
+## Key metrics to mention
 
-Quantify your project:
-
-- ✅ **4-layer architecture** (Domain, Application, Infrastructure, API)
-- ✅ **8+ API endpoints** (auth, users, health checks)
-- ✅ **15+ unit and integration tests**
-- ✅ **3 rate limiting policies** (login, register, refresh)
-- ✅ **100% CI/CD test pass rate**
-- ✅ **Zero security vulnerabilities** (based on NuGet audit)
-- ✅ **Comprehensive documentation** (README + 3 additional docs)
-- ✅ **Cross-platform CI** (Ubuntu + Windows)
+When you present the project, include measurable and verifiable metrics where possible (for example: number of implemented endpoints, tests, CI coverage, documentation pages). Confirm any specific numbers before publishing.
 
 ---
 
@@ -331,7 +275,7 @@ Wherever you mention SmartHub, include these links:
 
 ---
 
-## 🎯 Call to Action
+## Call to Action
 
 Always end with engagement:
 
@@ -361,24 +305,24 @@ Always end with engagement:
 
 ---
 
-## ✅ Final Checklist
+## Final checklist
 
 Before posting, ensure:
 
-- [ ] All screenshots are high quality and readable
-- [ ] No personal/sensitive information visible
-- [ ] GitHub repo is public
-- [ ] README.md is polished and professional
-- [ ] All links work correctly
-- [ ] Code is properly formatted
-- [ ] Tests are passing
-- [ ] CI/CD badge shows "passing" status
-- [ ] License file is present
-- [ ] Repository description and tags are set
+- All screenshots are high quality and readable
+- No personal/sensitive information is visible
+- GitHub repository is public (if you intend to share it)
+- `README.md` and documentation are polished and accurate
+- Links work correctly
+- Code is formatted consistently
+- Tests pass locally and on CI
+- CI status is visible and accurate
+- License file is present
+- Repository description and tags are set
 
 ---
 
-## 🌟 Pro Tips
+## Pro tips
 
 1. **Pin Your GitHub Repo** - Make SmartHub your pinned repo on GitHub profile
 2. **Update GitHub Profile README** - Add SmartHub as a featured project
@@ -389,7 +333,7 @@ Before posting, ensure:
 
 ---
 
-## 🎬 Optional: Create a Demo Video
+## Optional: Create a Demo Video
 
 **Script Template (60 seconds):**
 
@@ -441,4 +385,4 @@ Best regards,
 
 ---
 
-**Good luck showcasing your project! 🚀 You've built something impressive - now let the world see it!**
+Good luck showcasing your project. Share verifiable details and examples that demonstrate your work.

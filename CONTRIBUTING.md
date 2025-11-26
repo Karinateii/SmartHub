@@ -1,6 +1,6 @@
 # Contributing to SmartHub
 
-First off, thank you for considering contributing to SmartHub! 🎉
+First off, thank you for considering contributing to SmartHub!
 
 ## Code of Conduct
 
@@ -8,7 +8,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ## How Can I Contribute?
 
-### 🐛 Reporting Bugs
+### Reporting Bugs
 
 Before creating bug reports, please check existing issues to avoid duplicates.
 
@@ -19,7 +19,7 @@ Before creating bug reports, please check existing issues to avoid duplicates.
 - Environment details (.NET version, OS, SQL Server version)
 - Relevant logs from `logs/smarthub.log`
 
-### ✨ Suggesting Enhancements
+### Suggesting Enhancements
 
 Enhancement suggestions are tracked as GitHub issues.
 
@@ -29,7 +29,7 @@ Enhancement suggestions are tracked as GitHub issues.
 - Use cases and examples
 - Why this enhancement would be useful
 
-### 🔀 Pull Requests
+### Pull Requests
 
 1. **Fork the repository** and create your branch from `main`
    ```powershell
@@ -215,11 +215,15 @@ public async Task LoginAsync_ValidCredentials_ReturnsAuthResponse()
 - Test authentication and authorization
 - Verify HTTP status codes and response formats
 
-## Security Considerations
+- ## Security Considerations
 
-⚠️ **Never commit secrets!**
+- **Never commit secrets.** Use environment variables or a secrets manager for sensitive data.
 
-- Use environment variables for sensitive data
+- Run `./scripts/install-hooks.ps1` to install pre-commit checks
+- Review the Security section in `README.md`
+- Hash passwords with BCrypt
+- Validate all user input
+- Use parameterized queries (EF Core handles this by default)
 - Run `./scripts/install-hooks.ps1` to install pre-commit checks
 - Review the Security section in README.md
 - Hash passwords with BCrypt
@@ -236,4 +240,4 @@ Contributors will be recognized in the project's README.md.
 
 ---
 
-Thank you for contributing to SmartHub! 🚀
+Thank you for contributing to SmartHub!
