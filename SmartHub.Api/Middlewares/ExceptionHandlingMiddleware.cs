@@ -23,11 +23,19 @@ namespace SmartHub.Api.Middlewares
             catch (Exception ex)
             {
                 Log.Error(ex, "Unhandled exception processing request {Method} {Path}", context.Request.Method, context.Request.Path);
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
-                // Include exception message in response to aid debugging in test/integration environments.
-                var payload = new { error = ex.Message, traceId = context.TraceIdentifier };
-                await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
+                if (ex is InvalidOperationException)
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    var payload = new { error = ex.Message, traceId = context.TraceIdentifier };
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
+                }
+                else
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    var payload = new { error = "Internal Server Error", traceId = context.TraceIdentifier };
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
+                }
             }
         }
     }
