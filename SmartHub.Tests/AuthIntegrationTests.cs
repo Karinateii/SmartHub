@@ -75,7 +75,8 @@ namespace SmartHub.Tests
     public async Task FullAuthFlow_RegisterLoginRefreshLogout_Succeeds()
     {
       var client = _factory.CreateClient();
-      var registerRequest = new RegisterRequest { FirstName = "Int", LastName = "Tester", Email = "inttest@example.com", Password = "IntPass!234", ConfirmPassword = "IntPass!234" };
+      var intPass = "IntPass!234";
+      var registerRequest = new RegisterRequest { FirstName = "Int", LastName = "Tester", Email = "inttest@example.com", Password = intPass, ConfirmPassword = intPass };
       var registerResp = await client.PostAsJsonAsync("/api/auth/register", registerRequest);
       registerResp.EnsureSuccessStatusCode();
       var registerContent = await registerResp.Content.ReadFromJsonAsync<AuthResponse>();
