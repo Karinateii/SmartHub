@@ -25,7 +25,8 @@ namespace SmartHub.Api.Middlewares
                 Log.Error(ex, "Unhandled exception processing request {Method} {Path}", context.Request.Method, context.Request.Path);
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
-                var payload = new { error = "Internal Server Error", traceId = context.TraceIdentifier };
+                // Include exception message in response to aid debugging in test/integration environments.
+                var payload = new { error = ex.Message, traceId = context.TraceIdentifier };
                 await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
             }
         }
