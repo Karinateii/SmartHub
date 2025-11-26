@@ -28,6 +28,22 @@ namespace SmartHub.Tests
           services.RemoveAll(typeof(SmartHubDbContext));
           services.AddDbContext<SmartHubDbContext>(options =>
             options.UseInMemoryDatabase("IntegrationTestDb"));
+            // Configure JWT authentication for tests
+            var testKey = "01234567890123456789012345678901";
+            var keyBytes = System.Text.Encoding.UTF8.GetBytes(testKey);
+            services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)
+              .AddJwtBearer(options =>
+              {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                  ValidateIssuer = true,
+                  ValidateAudience = true,
+                  ValidateIssuerSigningKey = true,
+                  ValidIssuer = "SmartHub",
+                  ValidAudience = "SmartHubClient",
+                  IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(keyBytes)
+                };
+              });
         });
         // Provide Jwt settings for integration test so tokens are generated
         builder.ConfigureAppConfiguration((context, config) =>
