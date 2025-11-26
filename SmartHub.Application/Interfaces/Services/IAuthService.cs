@@ -9,5 +9,6 @@ namespace SmartHub.Application.Interfaces.Services
     Task<AuthResponse> LoginAsync(LoginRequest request);
     Task<AuthResponse> RefreshTokenAsync(string refreshToken);
     Task RevokeRefreshTokenAsync(string refreshToken);
+    Task RevokeRefreshTokenByUserIdAsync(Guid userId);
   }
 }

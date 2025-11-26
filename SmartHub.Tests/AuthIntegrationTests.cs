@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -62,7 +63,8 @@ namespace SmartHub.Tests
       refreshResp.EnsureSuccessStatusCode();
       var refreshContent = await refreshResp.Content.ReadFromJsonAsync<AuthResponse>();
 
-      // Logout
+      // Logout (endpoint requires a valid access token)
+      client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", refreshContent.Token);
       var logoutResp = await client.PostAsJsonAsync("/api/auth/logout", new RefreshTokenRequest { RefreshToken = refreshContent.RefreshToken });
       Assert.Equal(System.Net.HttpStatusCode.NoContent, logoutResp.StatusCode);
 

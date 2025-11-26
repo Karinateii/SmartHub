@@ -52,7 +52,24 @@ namespace SmartHub.Api.Controllers.Auth
     [Authorize]
     public async Task<IActionResult> Logout([FromBody] RefreshTokenRequest request)
     {
-      await _authService.RevokeRefreshTokenAsync(request.RefreshToken);
+      try
+      {
+        await _authService.RevokeRefreshTokenAsync(request.RefreshToken);
+      }
+      catch (InvalidOperationException)
+      {
+        // Fallback: revoke by authenticated user id if token verification failed
+        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (Guid.TryParse(userIdClaim, out var userId))
+        {
+          await _authService.RevokeRefreshTokenByUserIdAsync(userId);
+        }
+        else
+        {
+          throw;
+        }
+      }
+
       return NoContent();
     }
   }

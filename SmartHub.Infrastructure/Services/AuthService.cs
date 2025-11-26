@@ -98,6 +98,17 @@ namespace SmartHub.Infrastructure.Services
       await _dbContext.SaveChangesAsync();
     }
 
+    public async Task RevokeRefreshTokenByUserIdAsync(Guid userId)
+    {
+      var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+      if (user == null)
+        throw new InvalidOperationException("User not found.");
+
+      user.RefreshToken = null;
+      user.RefreshTokenExpiry = null;
+      await _dbContext.SaveChangesAsync();
+    }
+
     private AuthResponse CreateAuthResponse(User user)
     {
       var key = _configuration["Jwt:Key"] ?? Environment.GetEnvironmentVariable("JWT_KEY") ?? throw new InvalidOperationException("JWT Key not configured");
