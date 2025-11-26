@@ -23,15 +23,17 @@ namespace SmartHub.Tests
 
     private IConfiguration CreateJwtConfig()
     {
-      var dict = new System.Collections.Generic.Dictionary<string, string?>
+      // Generate a runtime JWT key for tests to avoid hardcoding secrets in source
+      var rnd = System.Security.Cryptography.RandomNumberGenerator.GetBytes(32);
+      var runtimeKey = Convert.ToBase64String(rnd);
+      var dict = new System.Collections.Generic.Dictionary<string, string>
       {
-        // Use a 32-byte key for HS256
-        { "Jwt:Key", "01234567890123456789012345678901" },
+        { "Jwt:Key", runtimeKey },
         { "Jwt:Issuer", "SmartHub" },
         { "Jwt:Audience", "SmartHubClient" },
         { "Jwt:ExpireMinutes", "60" }
       };
-      return new ConfigurationBuilder().AddInMemoryCollection(dict).Build();
+      return new ConfigurationBuilder().AddInMemoryCollection(dict.Select(kvp => new System.Collections.Generic.KeyValuePair<string, string?>(kvp.Key, kvp.Value))).Build();
     }
 
     [Fact]
@@ -40,7 +42,8 @@ namespace SmartHub.Tests
       using var db = CreateInMemoryDb("RegisterTestDb");
       var config = CreateJwtConfig();
       var service = new AuthService(db, config);
-      var request = new RegisterRequest { FirstName = "T", LastName = "User", Email = "test@example.com", Password = "Pass123!", ConfirmPassword = "Pass123!" };
+      var pwd = "Pass123!";
+      var request = new RegisterRequest { FirstName = "T", LastName = "User", Email = "test@example.com", Password = pwd, ConfirmPassword = pwd };
 
       var response = await service.RegisterAsync(request);
 
@@ -58,7 +61,8 @@ namespace SmartHub.Tests
       using var db = CreateInMemoryDb("LoginTestDb");
       var config = CreateJwtConfig();
       var service = new AuthService(db, config);
-      var register = new RegisterRequest { FirstName = "L", LastName = "User", Email = "login@example.com", Password = "Login!234", ConfirmPassword = "Login!234" };
+      var loginPwd = "Login!234";
+      var register = new RegisterRequest { FirstName = "L", LastName = "User", Email = "login@example.com", Password = loginPwd, ConfirmPassword = loginPwd };
       var regResponse = await service.RegisterAsync(register);
 
       var loginRequest = new LoginRequest { Email = register.Email, Password = register.Password };
@@ -76,7 +80,8 @@ namespace SmartHub.Tests
       using var db = CreateInMemoryDb("RefreshInvalidTestDb");
       var config = CreateJwtConfig();
       var service = new AuthService(db, config);
-      var register = new RegisterRequest { FirstName = "R", LastName = "User", Email = "refresh@example.com", Password = "Refresh!234", ConfirmPassword = "Refresh!234" };
+      var refreshPwd = "Refresh!234";
+      var register = new RegisterRequest { FirstName = "R", LastName = "User", Email = "refresh@example.com", Password = refreshPwd, ConfirmPassword = refreshPwd };
       var regResponse = await service.RegisterAsync(register);
 
       await Assert.ThrowsAsync<InvalidOperationException>(async () => await service.RefreshTokenAsync("invalidtoken"));
@@ -88,7 +93,8 @@ namespace SmartHub.Tests
       using var db = CreateInMemoryDb("LogoutTestDb");
       var config = CreateJwtConfig();
       var service = new AuthService(db, config);
-      var register = new RegisterRequest { FirstName = "O", LastName = "User", Email = "logout@example.com", Password = "Logout!234", ConfirmPassword = "Logout!234" };
+      var logoutPwd = "Logout!234";
+      var register = new RegisterRequest { FirstName = "O", LastName = "User", Email = "logout@example.com", Password = logoutPwd, ConfirmPassword = logoutPwd };
       var regResponse = await service.RegisterAsync(register);
 
       // ensure logout removes refresh token
