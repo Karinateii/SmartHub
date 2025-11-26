@@ -66,7 +66,11 @@ namespace SmartHub.Tests
       // Logout (endpoint requires a valid access token)
       client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", refreshContent.Token);
       var logoutResp = await client.PostAsJsonAsync("/api/auth/logout", new RefreshTokenRequest { RefreshToken = refreshContent.RefreshToken });
-      Assert.Equal(System.Net.HttpStatusCode.NoContent, logoutResp.StatusCode);
+      if (logoutResp.StatusCode != System.Net.HttpStatusCode.NoContent)
+      {
+        var body = await logoutResp.Content.ReadAsStringAsync();
+        Assert.True(false, $"Logout failed with {(int)logoutResp.StatusCode}: {body}");
+      }
 
       // Trying to refresh with the same token should fail
       var refreshAgainResp = await client.PostAsJsonAsync("/api/auth/refresh", refreshReq);
