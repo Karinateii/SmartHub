@@ -3,22 +3,22 @@ using SmartHub.Domain.Enums;
 
 namespace SmartHub.Domain.Entities
 {
-  public class User : AuditableEntity
-  {
-    public string FirstName { get; set; } = default!;
-    public string LastName { get; set; } = default!;
-    public string Email { get; set; } = default!;
+    public class User : AuditableEntity
+    {
+        public string FirstName { get; set; } = default!;
+        public string LastName { get; set; } = default!;
+        public string Email { get; set; } = default!;
 
-    public string PasswordHash { get; set; } = default!;
-    public Role Role { get; set; } = Role.User;
-    
-    public string? ProfileImagedUrl { get; set; }
+        public string PasswordHash { get; set; } = default!;
+        public Role Role { get; set; } = Role.User;
 
-    public bool EmailVerified { get; set; } = false;
+        public string? ProfileImagedUrl { get; set; }
 
-    public string? RefreshToken { get; set; }
-    public DateTime? RefreshTokenExpiry { get; set; }
-  }
+        public bool EmailVerified { get; set; } = false;
+
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiry { get; set; }
+    }
 }
 
 /* This covers everything an authentication system needs:
