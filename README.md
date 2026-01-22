@@ -334,6 +334,14 @@ Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
+## Acknowledgments
+
+- Thanks to the .NET community for excellent documentation
+- Inspired by real-world production API patterns
+- Built as a learning resource and portfolio project
+
 ---
+
+**Author:** [Ebenezer Doutimiwei](https://github.com/Karinateii)
 
 For issues and feature requests, see: [Report Bug](https://github.com/Karinateii/SmartHub/issues) • [Request Feature](https://github.com/Karinateii/SmartHub/issues)
