@@ -327,4 +327,4 @@ MigrationBackup/
 .ionide/
 
 # Fody (weaving)
-FodyWeavers.xsd
+FodyWeavers.xsd*.db
