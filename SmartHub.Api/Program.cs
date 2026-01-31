@@ -106,9 +106,9 @@ builder.Services.AddRateLimiter(options =>
 });
 
 // Database connection
-// Use the key defined in appsettings.json (`SmartHubDatabase`)
+// Use SQLite for cross-platform support
 builder.Services.AddDbContext<SmartHubDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SmartHubDatabase")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("SmartHubDatabase")));
 
 // Register FluentValidation validators from Application assembly
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
